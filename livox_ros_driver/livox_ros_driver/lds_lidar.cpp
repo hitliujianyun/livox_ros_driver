@@ -102,6 +102,7 @@ int LdsLidar::InitLdsLidar(std::vector<std::string> &broadcast_code_strs,
         "connection mode!\n");
   }
 
+//  todo enable_timesync_
   if (enable_timesync_) {
     timesync_ = TimeSync::GetInstance();
     if (timesync_->InitTimeSync(timesync_config_)) {

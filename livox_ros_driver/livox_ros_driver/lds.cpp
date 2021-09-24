@@ -30,6 +30,9 @@
 #include <time.h>
 #include <chrono>
 
+#include <ros/ros.h>
+
+
 namespace livox_ros {
 
 /** Common function --------------------------------------------------------- */
@@ -643,6 +646,24 @@ void Lds::StorageRawPacket(uint8_t handle, LivoxEthPacket* eth_packet) {
   memcpy(cur_timestamp.stamp_bytes, eth_packet->timestamp,
          sizeof(cur_timestamp));
   timestamp = RawLdsStampToNs(cur_timestamp, eth_packet->timestamp_type);
+
+//todo ljy
+//    kTimestampTypeNoSync = 0, /**< No sync signal mode. */
+//    kTimestampTypePtp = 1,    /**< 1588v2.0 PTP sync mode. */
+//    kTimestampTypeRsvd = 2,   /**< Reserved use. */
+//    kTimestampTypePpsGps = 3, /**< pps+gps sync mode. */
+//    kTimestampTypePps = 4,    /**< pps only sync mode. */
+//    kTimestampTypeUnknown = 5 /**< Unknown mode. */
+
+    static int numcount = 0;
+    numcount ++;
+    if(numcount > 1000){
+        numcount = 0;
+        ROS_INFO("timestamp_type : %d", eth_packet->timestamp_type);
+        ROS_INFO("timestamp : %ld", timestamp);
+    }
+
+
   if (timestamp >= kRosTimeMax) {
     printf("Raw EthPacket time out of range Lidar[%d]\n", handle);
     return;

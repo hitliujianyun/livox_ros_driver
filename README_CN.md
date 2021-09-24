@@ -203,7 +203,7 @@ LiDAR 配置参数说明
 2. 连接中心板时，使用 livox_hub_config.json 来配置中心板和 LiDAR 相关的参数，文件内容示例如下：
 
    ```json
-
+   
    {
       "hub_config": {
          "broadcast_code": "13UUG1R00400170",
